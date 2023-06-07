@@ -37,4 +37,8 @@ bonus: $(BONUS_OBJS)
 test:
 	$(CC) $(CFLAGS) $(DEBUG) *.c -o test
 
+check:
+	gcc -g -O0 *.c
+	lldb ./a.out
+
 .PHONY: all clean fclean re bonus test

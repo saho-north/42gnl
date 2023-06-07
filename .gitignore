@@ -54,3 +54,10 @@ dkms.conf
 gnlTester
 sample
 .DS_Store
+gnl-unit-test
+main1.c
+main2.c
+main3.c
+main2_generator.c
+test.sh
+test.out
