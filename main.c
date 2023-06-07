@@ -6,51 +6,42 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:32:34 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/05/31 05:05:23 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:23:24 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	print_error_main(short error_code)
+int	main(void)
 {
-	char	*error_message[3];
+	char	*line;
+	int		fd1;
+	int		i;
 
-	error_message[0] = "Error: Invalid number of arguments\n";
-	error_message[1] = "Error: Failed to open the file.\n";
-	error_message[2] = "Error: Failed to read the file.\n";
-	ft_putstr(error_message[error_code]);
-	return (NULL);
-}
-
-int	main(int argc, char **argv)
-{
-	int		fd;
-	char	*readline;
-
-	if (argc != 2)
-	{
-		print_error_main(0);
-		return (1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-	{
-		print_error_main(1);
-		return (1);
-	}
-	while (readline = get_next_readline(fd))
-	{
-		if (!readline)
-		{
-			print_error_main(2);
-			return (1);
-		}
-		else
-		{
-			ft_putstr(readline);
-		}
-	}
-	close(fd);
+	// int		fd2;
+	// int		fd3;
+	fd1 = open("tests/test_001.txt", O_RDONLY);
+	// fd2 = open("tests/test2.txt", O_RDONLY);
+	// fd3 = open("tests/test3.txt", O_RDONLY);
+	i = 1;
+	// while (i < 7)
+	// {
+	// 	line = get_next_line(fd1);
+	// 	printf("line [%02d]: %s", i, line);
+	// 	free(line);
+	// 	// line = get_next_line(fd2);
+	// 	// printf("line [%02d]: %s", i, line);
+	// 	// free(line);
+	// 	// line = get_next_line(fd3);
+	// 	// printf("line [%02d]: %s", i, line);
+	// 	// free(line);
+	// 	// i++;
+	// }
+	line = get_next_line(fd1);
+	printf("line [%02d]: %s", i, line);
+	free(line);
+	close(fd1);
+	// close(fd2);
+	// close(fd3);
 	return (0);
 }
