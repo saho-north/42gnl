@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:04:58 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/08 04:57:27 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/08 05:57:07 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 32
 # endif
 
 char	*get_current_line(char **buffered_text);
