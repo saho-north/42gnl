@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:32:34 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/08 05:13:21 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:06:44 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ int	main(void)
 		j = 0;
 		while (j < 100)
 		{
-			printf("---------------------------------\n");
+			printf("\n---------------------------------\n");
 			line = get_next_line(fd[i]);
 			printf("file[%02zu] line[%02zu]: %s", i, j, line);
-			printf("\n---------------------------------\n");
 			if (!line)
 				break ;
 			free(line);
