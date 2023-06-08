@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/08 05:51:45 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:08:45 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 char	*get_current_line(char **buffered_text)
 {
-	char	*last_line;
+	char	*current_line;
 
-	last_line = ft_substr(*buffered_text, 0, ft_strlen(*buffered_text));
-	if (!last_line)
+	current_line = ft_substr(*buffered_text, 0, ft_strlen(*buffered_text));
+	if (!current_line)
 		return (NULL);
 	free(*buffered_text);
 	*buffered_text = NULL;
-	return (last_line);
+	return (current_line);
 }
 
 char	*extract_next_line(char **buffered_text)
