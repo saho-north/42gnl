@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:32:34 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/10 06:19:37 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/10 06:33:04 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int	main(void)
 			line = get_next_line(fd[i]);
 			printf("file[%02zu] line[%02zu]: %s", i, j, line);
 			if (!line)
+			{
+				printf("\n---------------------------------\n");
+				printf("End of file[%02zu]\n", i);
 				break ;
+			}
 			free(line);
 			line = NULL;
 			j++;
