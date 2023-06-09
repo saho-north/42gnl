@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 05:20:20 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/08 06:02:43 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/10 08:05:53 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 # define FD_MAX 1024
 
-char	*get_current_line(char **buffered_text);
 char	*extract_next_line(char **buffered_text);
 char	*strjoin_plus(char *buffered_text, char *read_buffer);
 char	*read_from_file(int fd, char **buffered_text);

@@ -6,13 +6,14 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:04:58 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/08 05:57:07 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/10 08:09:59 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include <limits.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,7 +23,6 @@
 #  define BUFFER_SIZE 32
 # endif
 
-char	*get_current_line(char **buffered_text);
 char	*extract_next_line(char **buffered_text);
 char	*strjoin_plus(char *buffered_text, char *read_buffer);
 char	*read_from_file(int fd, char **buffered_text);

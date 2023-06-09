@@ -6,23 +6,11 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/09 05:09:49 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/10 08:05:47 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-char	*get_current_line(char **buffered_text)
-{
-	char	*current_line;
-
-	current_line = ft_substr(*buffered_text, 0, ft_strlen(*buffered_text));
-	free(*buffered_text);
-	*buffered_text = NULL;
-	if (!current_line)
-		return (NULL);
-	return (current_line);
-}
 
 char	*extract_next_line(char **buffered_text)
 {
@@ -31,14 +19,15 @@ char	*extract_next_line(char **buffered_text)
 	char	*tmp;
 
 	marker = ft_strchr(*buffered_text, '\n');
+	if (marker)
+		next_line = ft_substr(*buffered_text, 0, marker - *buffered_text + 1);
 	if (!marker)
-		return (get_current_line(buffered_text));
-	next_line = ft_substr(*buffered_text, 0, marker - *buffered_text + 1);
-	if (!next_line)
+		next_line = ft_substr(*buffered_text, 0, ft_strlen(*buffered_text));
+	if (!next_line || !marker)
 	{
 		free(*buffered_text);
 		*buffered_text = NULL;
-		return (NULL);
+		return (next_line);
 	}
 	tmp = *buffered_text;
 	*buffered_text = ft_substr(marker + 1, 0, ft_strlen(marker + 1));
