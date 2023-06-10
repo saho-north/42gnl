@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/10 08:11:28 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/10 09:24:18 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,8 @@ char	*strjoin_plus(char *buffered_text, char *read_buffer)
 	size_t	len1;
 	size_t	len2;
 
-	if (!read_buffer)
+	if (!buffered_text || !read_buffer)
 		return (NULL);
-	if (!buffered_text)
-	{
-		dst = ft_substr(read_buffer, 0, ft_strlen(read_buffer));
-		if (!dst)
-			return (NULL);
-		return (dst);
-	}
 	len1 = ft_strlen(buffered_text);
 	len2 = ft_strlen(read_buffer);
 	dst = (char *)ft_calloc(len1 + len2 + 1, sizeof(char));
@@ -78,34 +71,42 @@ char	*read_from_file(int fd, char **buffered_text)
 	while (!ft_strchr(*buffered_text, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, read_buffer, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			break ;
 		read_buffer[bytes_read] = '\0';
-		if (bytes_read > 0)
-			*buffered_text = strjoin_plus(*buffered_text, read_buffer);
+		*buffered_text = strjoin_plus(*buffered_text, read_buffer);
 		if (!*buffered_text)
 			break ;
 	}
 	free(read_buffer);
 	if (!*buffered_text || !ft_strlen(*buffered_text) || bytes_read < 0)
-	{
-		if (*buffered_text)
-			free(*buffered_text);
 		return (NULL);
-	}
 	return (*buffered_text);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffered_text;
-	char		*next_line;
+	char		*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > ULONG_MAX)
 		return (NULL);
-	buffered_text = read_from_file(fd, &buffered_text);
 	if (!buffered_text)
+	{
+		buffered_text = (char *)ft_calloc(1, sizeof(char));
+		if (!buffered_text)
+			return (NULL);
+	}
+	tmp = read_from_file(fd, &buffered_text);
+	if (!tmp)
+	{
+		if (buffered_text)
+		{
+			free(buffered_text);
+			buffered_text = NULL;
+		}
 		return (NULL);
-	next_line = extract_next_line(&buffered_text);
-	if (!next_line)
-		return (NULL);
-	return (next_line);
+	}
+	buffered_text = tmp;
+	return (extract_next_line(&buffered_text));
 }

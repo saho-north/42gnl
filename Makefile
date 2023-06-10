@@ -33,11 +33,11 @@ bonus: $(BONUS_OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 test: $(OBJS)
-	$(CC) $(CFLAGS) $^ -o a.out
+	$(CC) $(CFLAGS)  $^ -o a.out
 	./a.out
 
 test_bonus: $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $^ -o a.out
+	$(CC) $(CFLAGS)  $^ -o a.out
 	./a.out
 
 .PHONY: all clean fclean re bonus test
