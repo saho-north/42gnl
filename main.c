@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:32:34 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/10 09:07:51 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/13 02:15:20 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	main(void)
 				printf("End of file[%02zu]\n", i);
 				break ;
 			}
-			free(line);
+			if (line)
+				free(line);
 			line = NULL;
 			j++;
 		}

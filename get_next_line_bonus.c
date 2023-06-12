@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/10 09:44:40 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/13 02:14:37 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*extract_next_line(char **buffered_text)
 	*buffered_text = ft_substr(marker + 1, 0, ft_strlen(marker + 1));
 	free(tmp);
 	if (!*buffered_text)
+	{
+		free(next_line);
 		return (NULL);
+	}
 	return (next_line);
 }
 
@@ -49,47 +52,48 @@ char	*strjoin_plus(char *buffered_text, char *read_buffer)
 	len2 = ft_strlen(read_buffer);
 	dst = (char *)ft_calloc(len1 + len2 + 1, sizeof(char));
 	if (!dst)
-	{
-		free(buffered_text);
 		return (NULL);
-	}
 	ft_memcpy(dst, buffered_text, len1);
 	ft_memcpy(dst + len1, read_buffer, len2);
 	free(buffered_text);
 	return (dst);
 }
 
-char	*read_from_file(int fd, char **buffered_text)
+ssize_t	read_from_file(int fd, char **buffered_text)
 {
 	char	*read_buffer;
+	char	*tmp;
 	ssize_t	bytes_read;
 
 	read_buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!read_buffer)
-		return (NULL);
+		return (-1);
 	bytes_read = 1;
 	while (!ft_strchr(*buffered_text, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, read_buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
-		read_buffer[bytes_read] = '\0';
-		*buffered_text = strjoin_plus(*buffered_text, read_buffer);
-		if (!*buffered_text)
-			break ;
+		if (bytes_read > 0)
+		{
+			read_buffer[bytes_read] = '\0';
+			tmp = strjoin_plus(*buffered_text, read_buffer);
+			if (!tmp)
+			{
+				free(read_buffer);
+				return (-1);
+			}
+			*buffered_text = tmp;
+		}
 	}
 	free(read_buffer);
-	if (!*buffered_text || !ft_strlen(*buffered_text) || bytes_read < 0)
-		return (NULL);
-	return (*buffered_text);
+	return (bytes_read);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffered_text[FD_MAX];
-	char		*tmp;
+	ssize_t		result;
 
-	if (fd < 0 || fd >= FD_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE > ULONG_MAX)
+	if (fd < 0 || fd >= FD_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buffered_text[fd])
 	{
@@ -97,16 +101,13 @@ char	*get_next_line(int fd)
 		if (!buffered_text[fd])
 			return (NULL);
 	}
-	tmp = read_from_file(fd, &buffered_text[fd]);
-	if (!tmp)
+	result = read_from_file(fd, &buffered_text[fd]);
+	if (result == -1 || (result == 0 && ft_strlen(buffered_text[fd]) == 0))
 	{
 		if (buffered_text[fd])
-		{
 			free(buffered_text[fd]);
-			buffered_text[fd] = NULL;
-		}
+		buffered_text[fd] = NULL;
 		return (NULL);
 	}
-	buffered_text[fd] = tmp;
 	return (extract_next_line(&buffered_text[fd]));
 }
