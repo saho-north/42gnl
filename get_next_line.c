@@ -6,13 +6,13 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/13 02:11:17 by sakitaha         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:35:42 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*extract_next_line(char **buffered_text)
+static char	*extract_next_line(char **buffered_text)
 {
 	char	*next_line;
 	char	*marker;
@@ -40,7 +40,7 @@ char	*extract_next_line(char **buffered_text)
 	return (next_line);
 }
 
-char	*strjoin_plus(char *buffered_text, char *read_buffer)
+static char	*strjoin_plus(char *buffered_text, char *read_buffer)
 {
 	char	*dst;
 	size_t	len1;
@@ -59,7 +59,7 @@ char	*strjoin_plus(char *buffered_text, char *read_buffer)
 	return (dst);
 }
 
-ssize_t	read_from_file(int fd, char **buffered_text)
+static ssize_t	read_from_file(int fd, char **buffered_text)
 {
 	char	*read_buffer;
 	char	*tmp;
