@@ -1,45 +1,44 @@
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I.
-DEBUG		= -fsanitize=address -g
 NAME		= get_next_line
-SRCS		= get_next_line.c \
-			  get_next_line_utils.c \
-			  main.c
-OBJS 		= $(SRCS:.c=.o)
-INCS		= get_next_line.h
-BONUS_SRCS	= get_next_line_bonus.c \
-			  get_next_line_utils_bonus.c \
-			  main.c
-BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
-BONUS_INCS	= get_next_line_bonus.h
+BONUS_NAME	= get_next_line_bonus
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
+LIBRARY		= -L$(LIBFT_DIR) -lft
+INCLUDES	= -I$(HDR_DIR) -I$(LIBFT_DIR)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+LIBFT		= $(LIBFT_DIR)libft.a
+LIBFT_DIR	= ./libft/
+LIBFT_HDR	= $(LIBFT_DIR)libft.h
+
+HDR_LIST	= get_next_line.h
+HDR_DIR		= ./
+HDR			= $(addprefix $(HDR_DIR), $(HDR_LIST))
+
+SRCS		= get_next_line.c main.c
+BONUS_SRCS	= get_next_line_bonus.c main.c
+
+OBJS 		= $(SRCS:.c=.o)
+OBJS_BONUS	= $(BONUS_SRCS:.c=.o)
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBRARY)
 
 all: $(NAME)
 
-bonus: $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+bonus: $(BONUS_OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBRARY)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
-
-
-test: $(OBJS)
-	$(CC) $(CFLAGS)  $^ -o a.out
-	./a.out
-
-test_bonus: $(BONUS_OBJS)
-	$(CC) $(CFLAGS)  $^ -o a.out
-	./a.out
-
-.PHONY: all clean fclean re bonus test
+.PHONY: all clean fclean re bonus

@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: north <north@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 05:20:20 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/06/14 14:42:58 by sakitaha         ###   ########.fr       */
+/*   Created: 2023/09/05 21:54:52 by north             #+#    #+#             */
+/*   Updated: 2023/09/05 21:55:15 by north            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include "get_next_line.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+# ifndef OPEN_MAX
+#  define OPEN_MAX 256
 # endif
-
-# define FD_MAX 1024
-
-char	*ft_calloc(size_t count, size_t size);
-char	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *str);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*get_next_line(int fd);
 
 #endif
