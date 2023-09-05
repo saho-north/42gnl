@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: north <north@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 23:06:36 by sakitaha          #+#    #+#             */
-/*   Updated: 2023/09/05 21:54:37 by north            ###   ########.fr       */
+/*   Updated: 2023/09/06 03:12:13 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ static ssize_t	read_from_file(int fd, char **buffered_text)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffered_text[FD_MAX];
+	static char	*buffered_text[OPEN_MAX];
 	ssize_t		result;
 
-	if (fd < 0 || fd >= FD_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buffered_text[fd])
 	{

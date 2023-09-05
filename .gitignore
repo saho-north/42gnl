@@ -65,3 +65,4 @@ bonus
 test_bonus
 test
 get_next_line
+*.o
