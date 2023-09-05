@@ -18,6 +18,9 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
+bonus: $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -29,8 +32,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+
 
 test: $(OBJS)
 	$(CC) $(CFLAGS)  $^ -o a.out
