@@ -31,7 +31,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
